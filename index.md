@@ -104,6 +104,9 @@ int_to_url(2020) %>%
     ## #   B365CAHA <dbl>, PCAHH <dbl>, PCAHA <dbl>, MaxCAHH <dbl>, MaxCAHA <dbl>,
     ## #   AvgCAHH <dbl>, AvgCAHA <dbl>
 
+See [notes.txt](https://www.football-data.co.uk/notes.txt) for column
+descriptions & acknowledgements.
+
 There are empty columns (and, sometimes, rows) in older seasons’ data,
 so we better clean it up.
 
@@ -156,12 +159,28 @@ Having done the hard part, getting data for a bunch of seasons is now
 just a few lines:
 
 ``` r
-1993:2020 %>% 
+epl <- 1993:2020 %>% 
     lapply(
         get_season_data
     ) %>% 
-    bind_rows() %>% 
-    write_csv(
-        "EPL.csv"
-    )
+    bind_rows()
 ```
+
+``` r
+epl
+```
+
+    ## # A tibble: 10,804 x 6
+    ##    Season Date     HomeTeam         AwayTeam        FTHG  FTAG
+    ##     <int> <chr>    <chr>            <chr>          <dbl> <dbl>
+    ##  1   1993 14/08/93 Arsenal          Coventry           0     3
+    ##  2   1993 14/08/93 Aston Villa      QPR                4     1
+    ##  3   1993 14/08/93 Chelsea          Blackburn          1     2
+    ##  4   1993 14/08/93 Liverpool        Sheffield Weds     2     0
+    ##  5   1993 14/08/93 Man City         Leeds              1     1
+    ##  6   1993 14/08/93 Newcastle        Tottenham          0     1
+    ##  7   1993 14/08/93 Oldham           Ipswich            0     3
+    ##  8   1993 14/08/93 Sheffield United Swindon            3     1
+    ##  9   1993 14/08/93 Southampton      Everton            0     2
+    ## 10   1993 14/08/93 West Ham         Wimbledon          0     2
+    ## # ... with 10,794 more rows
